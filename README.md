@@ -1,2 +1,2 @@
-# webpack-template
-template for webpack
+# Battleship Project
+The Odin Project's Battleship project
