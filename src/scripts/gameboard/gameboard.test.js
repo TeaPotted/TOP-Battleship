@@ -3,29 +3,27 @@ import { Gameboard } from "./gameboard.js";
 test("placeShip() places a new ship at the given coordinate in the board", () => {
   const g = Gameboard();
   g.placeShip(0, 9, 3);
-  expect(g.getBoard()[0][9].ship).toEqual({
-    length: 3,
-    times_hit: 0,
-    is_sunk: false,
-  });
+  const s = g.getBoard()[0][9];
+  expect(s.length).toBe(3);
+  expect(s.times_hit).toBe(0);
+  expect(s.is_sunk).toBe(false);
 });
 
 test("placeShip() does nothing if the given coordinate is already occupied", () => {
   const g = Gameboard();
   g.placeShip(0, 0, 1);
   g.placeShip(0, 0, 3);
-  expect(g.getBoard()[0][0].ship).toEqual({
-    length: 1,
-    times_hit: 0,
-    is_sunk: false,
-  });
+  const s = g.getBoard()[0][0];
+  expect(s.length).toBe(1);
+  expect(s.times_hit).toBe(0);
+  expect(s.is_sunk).toBe(false);
 });
 
 test("receiveAttack() calls the hit function on the ship at the given coordinate", () => {
   const g = Gameboard();
   g.placeShip(0, 0, 1);
   g.receiveAttack(0, 0);
-  expect(g.getBoard()[0][0].ship.times_hit).toBe(1);
+  expect(g.getBoard()[0][0].times_hit).toBe(1);
 });
 
 test("allShipsSunk() returns true if all ships in the board have been sunk", () => {
