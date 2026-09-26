@@ -13,7 +13,11 @@ class Ship {
   }
 
   // hit() increments the ship's times_hit valie
-  hit = () => this.ship.times_hit++;
+  hit = () => {
+    this.ship.times_hit++;
+    // if the ship is considered sunk, call isSunk
+    this.isSunk();
+  };
 
   // isSunk() returns true or false depending on if the ship considered sunk
   isSunk() {
