@@ -12,7 +12,6 @@ function Gameboard() {
     if (board[row][col] !== null) return;
     board[row][col] = new Ship(ship_len);
     ships.push(board[row][col]);
-    console.log(ships);
   };
 
   // function for if the given coordinate contains a ship, call hit() on that ship
