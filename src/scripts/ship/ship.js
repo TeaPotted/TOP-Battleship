@@ -21,7 +21,13 @@ class Ship {
 
   // isSunk() returns true or false depending on if the ship considered sunk
   isSunk() {
-    return this.ship.times_hit >= this.ship.length;
+    // if the times_hit is greater or equal to the ship's length, update is_sunk and return true
+    if (this.ship.times_hit >= this.ship.length) {
+      this.is_sunk = true;
+      return true;
+    }
+
+    return false;
   }
 }
 
