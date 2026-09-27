@@ -21,6 +21,24 @@ test("placeShip() does nothing if the given coordinate is already occupied", () 
   expect(s.direction).toBe("v");
 });
 
+test("placeShip() places a new ship spanning through multiple coordinates in the board if ship's length is more than 1", () => {
+  const g = Gameboard();
+  g.placeShip(0, 0, 3, "h");
+  expect(g.getBoard()[0][0].length).toBe(3);
+  expect(g.getBoard()[0][1].length).toBe(3);
+  expect(g.getBoard()[0][2].length).toBe(3);
+
+  g.placeShip(1, 0, 2, "v");
+  expect(g.getBoard()[1][0].length).toBe(2);
+  expect(g.getBoard()[2][0].length).toBe(2);
+});
+
+test("placeShip() does nothing if the created ship is out of bounds", () => {
+  const g = Gameboard();
+  g.placeShip(0, 9, 2, "h");
+  expect(g.getBoard()[0][9]).toBe(null);
+});
+
 test("receiveAttack() calls the hit function on the ship at the given coordinate", () => {
   const g = Gameboard();
   g.placeShip(0, 0, 1);
