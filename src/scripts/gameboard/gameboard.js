@@ -7,10 +7,10 @@ function Gameboard() {
   const ships = [];
 
   // places a new ship at the given coordinate in board
-  const placeShip = (row, col, ship_len) => {
+  const placeShip = (row, col, ship_len, direction) => {
     // do nothing if the given coordinate is already occupied
     if (board[row][col] !== null) return;
-    board[row][col] = new Ship(ship_len);
+    board[row][col] = new Ship(ship_len, direction);
     ships.push(board[row][col]);
   };
 
