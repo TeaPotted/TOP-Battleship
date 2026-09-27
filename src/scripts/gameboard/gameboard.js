@@ -6,12 +6,43 @@ function Gameboard() {
   const missedShots = [];
   const ships = [];
 
+  // returns true or false depending on if the given row or column is out of the board
+  const shipIsOutOfBounds = (row, col) => {
+    if (row < 0 || row > 9 || col < 0 || col > 9) return true;
+    return false;
+  };
+
+  // for checking if you can create a ship at the given coordinate
+  const placeShipIsPossible = (row, col, len, dir) => {
+    if (dir == "h") {
+      while (len !== 0) {
+        // if the current coordinate on the board is not empty, return false
+        if (board[row][col] !== null || shipIsOutOfBounds(row, col))
+          return false;
+        (col++, len--);
+      }
+    }
+    // else, meaning the direction is vertical
+    else {
+      while (len !== 0) {
+        if (board[row][col] !== null || shipIsOutOfBounds(row, col))
+          return false;
+        (row++, len--);
+      }
+    }
+    return true;
+  };
+
   // places a new ship at the given coordinate in board
   const placeShip = (row, col, ship_len, direction) => {
     // do nothing if the given coordinate is already occupied
     if (board[row][col] !== null) return;
-    board[row][col] = new Ship(ship_len, direction);
-    ships.push(board[row][col]);
+
+    // only place the ship on the board if it is possible
+    if (placeShipIsPossible(row, col, ship_len, direction)) {
+      board[row][col] = new Ship(ship_len, direction);
+      ships.push(board[row][col]);
+    }
   };
 
   // function for if the given coordinate contains a ship, call hit() on that ship
