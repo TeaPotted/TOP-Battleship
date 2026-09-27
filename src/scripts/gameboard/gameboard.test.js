@@ -31,7 +31,7 @@ test("allShipsSunk() returns true if all ships in the board have been sunk", () 
   g.placeShip(0, 0, 1);
   g.placeShip(1, 0, 1);
   g.receiveAttack(0, 0);
-  g.receiveAttack(0, 1);
+  g.receiveAttack(1, 0);
 
   expect(g.allShipsSunk()).toBe(true);
 });
