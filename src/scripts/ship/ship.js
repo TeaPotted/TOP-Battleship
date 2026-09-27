@@ -1,8 +1,9 @@
 class Ship {
-  constructor(length, times_hit = 0, is_sunk = false) {
+  constructor(length, direction, times_hit = 0, is_sunk = false) {
     this.length = length;
     this.times_hit = times_hit;
     this.is_sunk = is_sunk;
+    this.direction = direction;
   }
 
   // hit() increments the ship's times_hit valie
