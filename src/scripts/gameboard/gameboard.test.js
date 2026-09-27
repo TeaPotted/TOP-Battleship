@@ -2,9 +2,9 @@ import { Gameboard } from "./gameboard.js";
 
 test("placeShip() places a new ship at the given coordinate in the board", () => {
   const g = Gameboard();
-  g.placeShip(0, 9, 3, "h");
+  g.placeShip(0, 9, 1, "h");
   const s = g.getBoard()[0][9];
-  expect(s.length).toBe(3);
+  expect(s.length).toBe(1);
   expect(s.times_hit).toBe(0);
   expect(s.is_sunk).toBe(false);
   expect(s.direction).toBe("h");
