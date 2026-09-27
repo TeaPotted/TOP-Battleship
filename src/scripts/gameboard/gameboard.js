@@ -40,8 +40,22 @@ function Gameboard() {
 
     // only place the ship on the board if it is possible
     if (placeShipIsPossible(row, col, ship_len, direction)) {
-      board[row][col] = new Ship(ship_len, direction);
-      ships.push(board[row][col]);
+      const ship = new Ship(ship_len, direction);
+      // if direction is horizontal
+      if (direction === "h") {
+        for (let i = ship_len; i > 0; i--) {
+          board[row][col] = ship;
+          col++;
+        }
+      }
+      // else direction is vertical
+      else {
+        for (let i = ship_len; i > 0; i--) {
+          board[row][col] = ship;
+          row++;
+        }
+      }
+      ships.push(ship);
     }
   };
 
