@@ -85,9 +85,5 @@ function Gameboard() {
 
   return { getBoard, placeShip, receiveAttack, allShipsSunk };
 }
-const g = Gameboard();
-g.placeShip(0, 0, 1);
-g.receiveAttack(0, 0);
-g.placeShip(0, 1, 2);
 
 export { Gameboard };
