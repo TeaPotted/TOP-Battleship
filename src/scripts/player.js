@@ -1,4 +1,4 @@
-import { Gameboard } from "./gameboard/gameboard.js";
+import { Gameboard } from "./gameboard.js";
 
 function Player() {
   const gb = Gameboard();

@@ -1,5 +1,5 @@
-import { Gameboard } from "./gameboard/gameboard.js";
-import { Ship } from "./ship/ship.js";
+import { Gameboard } from "./gameboard.js";
+import { Ship } from "./ship.js";
 
 test("hit() incremenents the times the ship has been hit", () => {
   const s = new Ship(3, "h");

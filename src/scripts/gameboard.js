@@ -1,4 +1,4 @@
-import { Ship } from "../ship/ship.js";
+import { Ship } from "./ship.js";
 
 function Gameboard() {
   // board will be a 10x10 2d array
