@@ -1,4 +1,26 @@
-import { Gameboard } from "./gameboard.js";
+import { Gameboard } from "./gameboard/gameboard.js";
+import { Ship } from "./ship/ship.js";
+
+test("hit() incremenents the times the ship has been hit", () => {
+  const s = new Ship(3, "h");
+  s.hit();
+  expect(s.times_hit).toBe(1);
+});
+
+test("hit() considers the ship as sunk if isSunk() returns true", () => {
+  const s = new Ship(1, "h");
+  s.hit();
+  expect(s.is_sunk).toBe(true);
+});
+
+test("isSunk() return true if the ship is sunk and false if not", () => {
+  const s = new Ship(2, "h");
+  s.hit();
+  expect(s.isSunk()).toBe(false);
+  s.hit();
+  expect(s.isSunk()).toBe(true);
+});
+
 
 test("placeShip() places a new ship at the given coordinate in the board", () => {
   const g = Gameboard();
