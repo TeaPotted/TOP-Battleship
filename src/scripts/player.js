@@ -21,7 +21,13 @@ function Player() {
     return cells;
   };
 
-  return { getCells };
+  // calls receiveAttack on the board with the given coordinate
+  const attack = (coordinate) => {
+    const [row, col] = coordinate;
+    gb.receiveAttack(row, col);
+  };
+
+  return { getCells, attack };
 }
 
 export { Player };
