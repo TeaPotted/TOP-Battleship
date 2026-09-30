@@ -8,13 +8,15 @@ function Player() {
   gb.placeShip(1, 5, 4, "h");
   gb.placeShip(7, 8, 2, "v");
 
-  // returns all the cells in the board
+  // returns each cell in the board in an object also containing it's coordinate
   const getCells = () => {
-    let cells = [];
-    for (let row of gb.getBoard()) {
-      for (let cell of row) {
-        cells.push(cell);
-      }
+    const cells = [];
+    for (let row in gb.getBoard()) {
+      let col = 0; // to keep track of the current column
+      gb.getBoard()[row].forEach((cell) => {
+        cells.push({ type: cell, coordinate: [row, col] });
+        col++;
+      });
     }
     return cells;
   };
