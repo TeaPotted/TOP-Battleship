@@ -3,7 +3,7 @@ import { Player } from "./player.js";
 function RenderGame() {
   const player1 = Player();
   const compPlayer = Player();
-  
+
   // function for displaying both the player's and computer's board on the DOM
   const displayBoards = () => {
     const playerBoard = document.createElement("div");
@@ -12,7 +12,7 @@ function RenderGame() {
     computerBoard.classList.add("board");
 
     renderPlayerBoard(player1, playerBoard);
-    renderPlayerBoard(compPlayer, computerBoard);
+    renderComputerBoard(compPlayer, computerBoard);
     document.body.append(playerBoard, computerBoard);
   };
 
@@ -33,6 +33,15 @@ function RenderGame() {
         playerBoardDiv.append(div);
       }
     }
+  };
+
+  // function for rendering the computers board to the DOM
+  const renderComputerBoard = (computer, computerBoardDiv) => {
+    computer.getCells().forEach(() => {
+      const div = document.createElement("div");
+      div.classList.add("empty");
+      computerBoardDiv.append(div);
+    });
   };
 
   return { displayBoards };
