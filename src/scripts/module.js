@@ -37,9 +37,10 @@ function RenderGame() {
 
   // function for rendering the computers board to the DOM
   const renderComputerBoard = (computer, computerBoardDiv) => {
-    computer.getCells().forEach(() => {
+    computer.getCells().forEach((cell) => {
       const div = document.createElement("div");
       div.classList.add("empty");
+      div.onclick = () => computer.attack(cell.coordinate);
       computerBoardDiv.append(div);
     });
   };
