@@ -14,7 +14,7 @@ function Player() {
     for (let row in gb.getBoard()) {
       let col = 0; // to keep track of the current column
       gb.getBoard()[row].forEach((cell) => {
-        cells.push({ type: cell, coordinate: [row, col] });
+        cells.push({ type: cell, coordinate: [Number(row), col] });
         col++;
       });
     }
@@ -26,7 +26,7 @@ function Player() {
     const [row, col] = coordinate;
     gb.receiveAttack(row, col);
   };
-
+  
   return { getCells, attack };
 }
 
