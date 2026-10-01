@@ -83,7 +83,7 @@ function Gameboard() {
 
   const getBoard = () => board;
 
-  return { getBoard, placeShip, receiveAttack, allShipsSunk };
+  return { getBoard, placeShip, receiveAttack, allShipsSunk, missedShots };
 }
 
 export { Gameboard };
