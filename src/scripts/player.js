@@ -26,8 +26,11 @@ function Player() {
     const [row, col] = coordinate;
     gb.receiveAttack(row, col);
   };
-  
-  return { getCells, attack };
+
+  // returns the board's missed shots
+  const getMissedShots = () => gb.missedShots;
+
+  return { getCells, attack, getMissedShots };
 }
 
 export { Player };
