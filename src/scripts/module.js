@@ -9,7 +9,7 @@ function RenderGame() {
     const playerBoard = document.createElement("div");
     playerBoard.classList.add("board");
     const computerBoard = document.createElement("div");
-    computerBoard.classList.add("board");
+    computerBoard.classList.add("board", "computer");
 
     renderPlayerBoard(player1, playerBoard);
     renderComputerBoard(compPlayer, computerBoard);
