@@ -40,7 +40,12 @@ function RenderGame() {
     computer.getCells().forEach((cell) => {
       const div = document.createElement("div");
       div.classList.add("empty");
-      div.onclick = () => computer.attack(cell.coordinate);
+      div.dataset.coordinate = cell.coordinate;
+      // when div is clicked, call attack on the cell's coordinate and update computer's board
+      div.onclick = () => {
+        computer.attack(cell.coordinate);
+        updateComputerBoard(div, cell.coordinate);
+      };
       computerBoardDiv.append(div);
     });
   };
