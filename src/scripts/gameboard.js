@@ -5,6 +5,7 @@ function Gameboard() {
   const board = Array.from({ length: 10 }, () => new Array(10).fill(null));
   const missedShots = [];
   const ships = [];
+  const exploredCoordinates = new Set();
 
   // returns true or false depending on if the given row or column is out of the board
   const shipIsOutOfBounds = (row, col) => {
@@ -61,6 +62,8 @@ function Gameboard() {
 
   // function for if the given coordinate contains a ship, call hit() on that ship
   const receiveAttack = (row, col) => {
+    exploredCoordinates.add(JSON.stringify([row, col]));
+
     // if the coordinate is empty, just add coordinate to missedShots
     if (board[row][col] === null) {
       missedShots.push([row, col]);
@@ -83,7 +86,14 @@ function Gameboard() {
 
   const getBoard = () => board;
 
-  return { getBoard, placeShip, receiveAttack, allShipsSunk, missedShots };
+  return {
+    getBoard,
+    placeShip,
+    receiveAttack,
+    allShipsSunk,
+    missedShots,
+    exploredCoordinates,
+  };
 }
 
 export { Gameboard };

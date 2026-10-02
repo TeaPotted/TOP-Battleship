@@ -30,7 +30,8 @@ function Player() {
   // returns the board's missed shots
   const getMissedShots = () => gb.missedShots;
 
-  return { getCells, attack, getMissedShots };
+  const getExploredCoordinates = () => gb.exploredCoordinates;
+  return { getCells, attack, getMissedShots, getExploredCoordinates };
 }
 
 export { Player };
