@@ -11,14 +11,14 @@ function RenderGame() {
     const computerBoard = document.createElement("div");
     computerBoard.classList.add("board", "computer");
 
-    renderPlayerBoard(player1, playerBoard);
-    renderComputerBoard(compPlayer, computerBoard);
+    renderPlayerBoard(playerBoard);
+    renderComputerBoard(computerBoard);
     document.body.append(playerBoard, computerBoard);
   };
 
   // function for rendering the player's board using a given div
-  const renderPlayerBoard = (player, playerBoardDiv) => {
-    const cells = player.getCells();
+  const renderPlayerBoard = (playerBoardDiv) => {
+    const cells = player1.getCells();
     for (let cell of cells) {
       // if the cell is null, append a div.empty to playerBoardDiv
       if (cell === null) {
@@ -36,14 +36,14 @@ function RenderGame() {
   };
 
   // function for rendering the computers board to the DOM
-  const renderComputerBoard = (computer, computerBoardDiv) => {
-    computer.getCells().forEach((cell) => {
+  const renderComputerBoard = (computerBoardDiv) => {
+    compPlayer.getCells().forEach((cell) => {
       const div = document.createElement("div");
       div.classList.add("empty");
       div.dataset.coordinate = cell.coordinate;
       // when div is clicked, call attack on the cell's coordinate and update computer's board
       div.onclick = () => {
-        computer.attack(cell.coordinate);
+        compPlayer.attack(cell.coordinate);
         updateComputerBoard(div, cell.coordinate);
       };
       computerBoardDiv.append(div);
