@@ -50,6 +50,22 @@ function RenderGame() {
     });
   };
 
+  // updates the computers board div
+  const updateComputerBoard = (div, coordinate) => {
+    // if the last value in the computer's missed shot array is the given coordinate,
+    // add a class of 'ship' to the given div
+    if (
+      JSON.stringify(
+        compPlayer.getMissedShots()[compPlayer.getMissedShots().length - 1],
+      ) === JSON.stringify(coordinate)
+    ) {
+      div.classList.add("miss");
+    }
+    // else give a class of 'ship'
+    else {
+      div.classList.add("ship");
+    }
+  };
   return { displayBoards };
 }
 
