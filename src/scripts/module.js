@@ -21,7 +21,7 @@ function RenderGame() {
     const cells = player1.getCells();
     for (let cell of cells) {
       // if the cell is null, append a div.empty to playerBoardDiv
-      if (cell === null) {
+      if (cell.type === null) {
         const div = document.createElement("div");
         div.classList.add("empty");
         playerBoardDiv.append(div);
