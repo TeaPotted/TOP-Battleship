@@ -21,6 +21,11 @@ function Player() {
     return cells;
   };
 
+  // returns the cell at the given coordinate
+  const getCell = (row, col) => {
+    return gb.getBoard()[row][col];
+  };
+
   // calls receiveAttack on the board with the given coordinate
   const attack = (coordinate) => {
     const [row, col] = coordinate;
@@ -31,7 +36,7 @@ function Player() {
   const getMissedShots = () => gb.missedShots;
 
   const getExploredCoordinates = () => gb.exploredCoordinates;
-  return { getCells, attack, getMissedShots, getExploredCoordinates };
+  return { getCells, attack, getMissedShots, getExploredCoordinates, getCell };
 }
 
 export { Player };
