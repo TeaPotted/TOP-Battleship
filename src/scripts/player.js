@@ -32,11 +32,36 @@ function Player() {
     gb.receiveAttack(row, col);
   };
 
+  // returns a random number from 0 to 9
+  const getRandomNum = () => {
+    return Math.floor(Math.random() * 9 + 1);
+  };
+
+  // returns a random coordinate in the player's board that hasn't been explored before
+  const getRandomUnexploredCoordinate = () => {
+    const exploredCoords = getExploredCoordinates();
+    let rand1 = getRandomNum();
+    let rand2 = getRandomNum();
+    // keep creating different a new random coordinate until random coordinate is not in exploredCoords
+    while (exploredCoords.has(JSON.stringify([rand1, rand2]))) {
+      rand1 = getRandomNum();
+      rand2 = getRandomNum();
+    }
+    return [rand1, rand2];
+  };
+
   // returns the board's missed shots
   const getMissedShots = () => gb.missedShots;
 
   const getExploredCoordinates = () => gb.exploredCoordinates;
-  return { getCells, attack, getMissedShots, getExploredCoordinates, getCell };
+  return {
+    getCells,
+    attack,
+    getMissedShots,
+    getExploredCoordinates,
+    getCell,
+    getRandomUnexploredCoordinate,
+  };
 }
 
 export { Player };
