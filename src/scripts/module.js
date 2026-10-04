@@ -20,15 +20,15 @@ function RenderGame() {
   const renderPlayerBoard = (playerBoardDiv) => {
     const cells = player1.getCells();
     for (let cell of cells) {
-      // if the cell is null, append a div.empty to playerBoardDiv
+      const div = document.createElement("div");
+      div.dataset.coordinate = cell.coordinate;
+      // if the cell is null, make div have a 'empty' class
       if (cell.type === null) {
-        const div = document.createElement("div");
         div.classList.add("empty");
         playerBoardDiv.append(div);
       }
-      // else, append a div.ship
+      // else, append give div a 'ship' class
       else {
-        const div = document.createElement("div");
         div.classList.add("ship");
         playerBoardDiv.append(div);
       }
