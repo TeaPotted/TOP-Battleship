@@ -7,7 +7,7 @@ function RenderGame() {
   // function for displaying both the player's and computer's board on the DOM
   const displayBoards = () => {
     const playerBoard = document.createElement("div");
-    playerBoard.classList.add("board");
+    playerBoard.classList.add("board", "player");
     const computerBoard = document.createElement("div");
     computerBoard.classList.add("board", "computer");
 
