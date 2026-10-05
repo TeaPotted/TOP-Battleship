@@ -55,6 +55,8 @@ function Player() {
   const getMissedShots = () => gb.missedShots;
 
   const getExploredCoordinates = () => gb.exploredCoordinates;
+
+  const allShipsSunk = () => gb.allShipsSunk();
   return {
     getCells,
     attack,
@@ -62,6 +64,7 @@ function Player() {
     getExploredCoordinates,
     getCell,
     getRandomUnexploredCoordinate,
+    allShipsSunk,
   };
 }
 
