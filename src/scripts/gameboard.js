@@ -62,8 +62,6 @@ function Gameboard() {
 
   // function for if the given coordinate contains a ship, call hit() on that ship
   const receiveAttack = (row, col) => {
-    exploredCoordinates.add(JSON.stringify([row, col]));
-
     // if the coordinate is empty, just add coordinate to missedShots
     if (board[row][col] === null) {
       missedShots.push([row, col]);

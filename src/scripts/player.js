@@ -47,6 +47,7 @@ function Player() {
       rand1 = getRandomNum();
       rand2 = getRandomNum();
     }
+    exploredCoords.add(JSON.stringify([rand1, rand2]));
     return [rand1, rand2];
   };
 
