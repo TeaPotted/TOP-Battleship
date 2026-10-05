@@ -34,7 +34,7 @@ function Player() {
 
   // returns a random number from 0 to 9
   const getRandomNum = () => {
-    return Math.floor(Math.random() * 9 + 1);
+    return Math.floor(Math.random() * 10);
   };
 
   // returns a random coordinate in the player's board that hasn't been explored before
