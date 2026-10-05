@@ -45,6 +45,7 @@ function RenderGame() {
       div.onclick = () => {
         compPlayer.attack(cell.coordinate);
         updateComputerBoard(div, cell.coordinate);
+        computerMakeAttack();
       };
       computerBoardDiv.append(div);
     });
@@ -65,6 +66,22 @@ function RenderGame() {
     else {
       div.classList.add("ship");
     }
+  };
+
+  // makes an attack on the player's board as the computer
+  const computerMakeAttack = () => {
+    // get random unexplored coordinate in the players board
+    const [row, col] = compPlayer.getRandomUnexploredCoordinate();
+    player1.attack([row, col]);
+
+    // find the div that contains the random coordinate
+    const div = document.querySelector(
+      `.board.player div[data-coordinate="${[row, col]}"`,
+    );
+    // if the attacked coordinate was a ship, give div a class of 'hit'
+    if (player1.getCell(row, col) !== null) div.classList.add("hit");
+    // else give a class of 'miss'
+    else div.classList.add("miss");
   };
   return { displayBoards };
 }
