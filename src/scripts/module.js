@@ -3,6 +3,7 @@ import { Player } from "./player.js";
 function RenderGame() {
   const player1 = Player();
   const compPlayer = Player();
+  let turn = "player";
 
   // function for displaying both the player's and computer's board on the DOM
   const displayBoards = () => {
@@ -15,6 +16,9 @@ function RenderGame() {
     renderComputerBoard(computerBoard);
     document.body.append(playerBoard, computerBoard);
   };
+
+  const switchTurn = () =>
+    turn === "player" ? (turn = "computer") : (turn = "player");
 
   // function for rendering the player's board using a given div
   const renderPlayerBoard = (playerBoardDiv) => {
@@ -43,9 +47,11 @@ function RenderGame() {
       div.dataset.coordinate = cell.coordinate;
       // when div is clicked, call attack on the cell's coordinate and update computer's board
       div.onclick = () => {
-        compPlayer.attack(cell.coordinate);
-        updateComputerBoard(div, cell.coordinate);
-        computerMakeAttack();
+        if (turn !== "computer") {
+          compPlayer.attack(cell.coordinate);
+          updateComputerBoard(div, cell.coordinate);
+          computerMakeAttack();
+        }
       };
       computerBoardDiv.append(div);
     });
@@ -66,10 +72,12 @@ function RenderGame() {
     else {
       div.classList.add("ship");
     }
+    switchTurn();
   };
 
   // makes an attack on the player's board as the computer
   const computerMakeAttack = () => {
+    if (turn == "player") return;
     // get random unexplored coordinate in the players board
     const [row, col] = compPlayer.getRandomUnexploredCoordinate();
     player1.attack([row, col]);
@@ -78,10 +86,15 @@ function RenderGame() {
     const div = document.querySelector(
       `.board.player div[data-coordinate="${[row, col]}"`,
     );
-    // if the attacked coordinate was a ship, give div a class of 'hit'
-    if (player1.getCell(row, col) !== null) div.classList.add("hit");
-    // else give a class of 'miss'
-    else div.classList.add("miss");
+
+    // wait a few seconds before switching turns
+    setTimeout(() => {
+      // if the attacked coordinate was a ship, give div a class of 'hit'
+      if (player1.getCell(row, col) !== null) div.classList.add("hit");
+      // else give a class of 'miss'
+      else div.classList.add("miss");
+      switchTurn();
+    }, 2500);
   };
   return { displayBoards };
 }
