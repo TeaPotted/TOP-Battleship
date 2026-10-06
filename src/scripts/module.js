@@ -15,7 +15,7 @@ function RenderGame() {
 
     renderPlayerBoard(playerBoard);
     renderComputerBoard(computerBoard);
-    document.body.append(playerBoard, computerBoard);
+    document.querySelector(".boards-container").append(playerBoard, computerBoard);
   };
 
   // stops the game if either players ships have all been sunk
