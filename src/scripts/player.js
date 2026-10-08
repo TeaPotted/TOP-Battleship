@@ -4,9 +4,9 @@ function Player() {
   const gb = Gameboard();
 
   // For now just populate each player’s Gameboard with predetermined coordinates
-  gb.placeShip(3, 2, 3, "v");
-  gb.placeShip(1, 5, 4, "h");
-  gb.placeShip(7, 8, 2, "v");
+  // gb.placeShip(3, 2, 3, "v");
+  // gb.placeShip(1, 5, 4, "h");
+  // gb.placeShip(7, 8, 2, "v");
 
   // returns each cell in the board in an object also containing it's coordinate
   const getCells = () => {
@@ -57,6 +57,9 @@ function Player() {
   const getExploredCoordinates = () => gb.exploredCoordinates;
 
   const allShipsSunk = () => gb.allShipsSunk();
+  const placeShip = (length, direction, row, col) => {
+    gb.placeShip(row, col, length, direction)
+  }
   return {
     getCells,
     attack,
@@ -65,6 +68,7 @@ function Player() {
     getCell,
     getRandomUnexploredCoordinate,
     allShipsSunk,
+    placeShip
   };
 }
 
