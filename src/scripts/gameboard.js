@@ -18,7 +18,7 @@ function Gameboard() {
     if (dir == "h") {
       while (len !== 0) {
         // if the current coordinate on the board is not empty, return false
-        if (board[row][col] !== null || shipIsOutOfBounds(row, col))
+        if (shipIsOutOfBounds(row, col) || board[row][col] !== null)
           return false;
         (col++, len--);
       }
@@ -26,7 +26,7 @@ function Gameboard() {
     // else, meaning the direction is vertical
     else {
       while (len !== 0) {
-        if (board[row][col] !== null || shipIsOutOfBounds(row, col))
+        if (shipIsOutOfBounds(row, col) || board[row][col] !== null)
           return false;
         (row++, len--);
       }
