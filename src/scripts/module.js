@@ -204,6 +204,9 @@ function RenderGame() {
     const startBtn = createButton("start");
     startBtn.addEventListener("click", () => startGame());
     document.body.append(startBtn);
+
+    // place random ships to the computer's board
+    compPlayer.randomlyPlaceShips();
   };
   return { displayBoards, displayStartScreen };
 }

@@ -3,11 +3,6 @@ import { Gameboard } from "./gameboard.js";
 function Player() {
   const gb = Gameboard();
 
-  // For now just populate each player’s Gameboard with predetermined coordinates
-  // gb.placeShip(3, 2, 3, "v");
-  // gb.placeShip(1, 5, 4, "h");
-  // gb.placeShip(7, 8, 2, "v");
-
   // returns each cell in the board in an object also containing it's coordinate
   const getCells = () => {
     const cells = [];
@@ -57,9 +52,45 @@ function Player() {
   const getExploredCoordinates = () => gb.exploredCoordinates;
 
   const allShipsSunk = () => gb.allShipsSunk();
+
   const placeShip = (length, direction, row, col) => {
-    gb.placeShip(row, col, length, direction)
-  }
+    gb.placeShip(row, col, length, direction);
+  };
+
+  // returns a random empty coordinate in the player's board
+  const getRandomEmptyCoordinate = () => {
+    let randomCoord = [getRandomNum(), getRandomNum()];
+    // generate a new random empty coordinate
+    while (getCell(randomCoord[0], randomCoord[1]) !== null) {
+      randomCoord = [getRandomNum(), getRandomNum()];
+    }
+    return randomCoord;
+  };
+
+  // returns a random row, col, length and direction for a ship
+  const randomlyPlaceShip = () => {
+    const [row, col] = getRandomEmptyCoordinate();
+    const directions = ["h", "v"];
+    let len = getRandomNum() + 1;
+    let dir = directions[Math.floor(Math.random() * directions.length)];
+    // keep generating a new length and direction until it is possible to place a ship with len and dir
+    while (gb.placeShipIsPossible(row, col, len, dir) === false) {
+      len = getRandomNum() + 1;
+      dir = directions[Math.floor(Math.random() * directions.length)];
+    }
+
+    console.log("ship:", row, col, len, dir);
+    gb.placeShip(row, col, len, dir);
+  };
+
+  // randomly places 5 ships to the player's board
+  const randomlyPlaceShips = () => {
+    randomlyPlaceShip();
+    randomlyPlaceShip();
+    randomlyPlaceShip();
+    randomlyPlaceShip();
+    randomlyPlaceShip();
+  };
   return {
     getCells,
     attack,
@@ -68,7 +99,8 @@ function Player() {
     getCell,
     getRandomUnexploredCoordinate,
     allShipsSunk,
-    placeShip
+    placeShip,
+    randomlyPlaceShips,
   };
 }
 
