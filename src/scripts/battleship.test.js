@@ -190,3 +190,18 @@ test("getUnexploredCoordinate returns a random unexlplored coordinate in the boa
   p.attack([9, 9]);
   expect(p.getRandomUnexploredCoordinate()).toStrictEqual([6, 7]);
 });
+
+test("reset() resets the whole gameboard", () => {
+  const g = Gameboard();
+  g.placeShip(0, 0, 1);
+  g.placeShip(0, 1, 1);
+  g.receiveAttack(0, 0);
+  g.reset();
+
+  expect(g.getBoard()).toStrictEqual(
+    Array.from({ length: 10 }, () => new Array(10).fill(null)),
+  );
+  expect(g.missedShots).toStrictEqual([]);
+  expect(g.ships).toStrictEqual([]);
+  expect(g.exploredCoordinates.size).toBe(0);
+});

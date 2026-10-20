@@ -2,10 +2,10 @@ import { Ship } from "./ship.js";
 
 function Gameboard() {
   // board will be a 10x10 2d array
-  const board = Array.from({ length: 10 }, () => new Array(10).fill(null));
-  const missedShots = [];
-  const ships = [];
-  const exploredCoordinates = new Set();
+  let board = Array.from({ length: 10 }, () => new Array(10).fill(null));
+  let missedShots = [];
+  let ships = [];
+  let exploredCoordinates = new Set();
 
   // returns true or false depending on if the given row or column is out of the board
   const shipIsOutOfBounds = (row, col) => {
@@ -85,6 +85,14 @@ function Gameboard() {
 
   const getBoard = () => board;
 
+  // resets board, missedShots and exploredCoordinates
+  const reset = () => {
+    board = Array.from({ length: 10 }, () => new Array(10).fill(null));
+    missedShots = [];
+    ships.splice(0, ships.length);
+    exploredCoordinates.clear();
+  };
+
   return {
     getBoard,
     placeShip,
@@ -93,6 +101,8 @@ function Gameboard() {
     missedShots,
     exploredCoordinates,
     placeShipIsPossible,
+    ships,
+    reset,
   };
 }
 
