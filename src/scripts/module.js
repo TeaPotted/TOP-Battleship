@@ -1,9 +1,6 @@
 import { Player } from "./player.js";
-import {
-  createInputContainer,
-  createDirectionContainer,
-  createButton,
-} from "./create-elems.js";
+import { createButton } from "./create-elems.js";
+import { displayShips, renderPlayerBoard } from "./start-modules.js";
 
 function RenderGame() {
   let player1 = Player();
@@ -19,7 +16,7 @@ function RenderGame() {
     const computerBoard = document.createElement("div");
     computerBoard.classList.add("board", "computer");
 
-    renderPlayerBoard(playerBoard);
+    renderPlayerBoard(player1, playerBoard);
     renderComputerBoard(computerBoard);
     boardsDiv.append(playerBoard, computerBoard);
   };
@@ -34,25 +31,6 @@ function RenderGame() {
 
   const switchTurn = () =>
     turn === "player" ? (turn = "computer") : (turn = "player");
-
-  // function for rendering the player's board using a given div
-  const renderPlayerBoard = (playerBoardDiv) => {
-    const cells = player1.getCells();
-    for (let cell of cells) {
-      const div = document.createElement("div");
-      div.dataset.coordinate = cell.coordinate;
-      // if the cell is null, make div have a 'empty' class
-      if (cell.type === null) {
-        div.classList.add("empty");
-        playerBoardDiv.append(div);
-      }
-      // else, append give div a 'ship' class
-      else {
-        div.classList.add("ship");
-        playerBoardDiv.append(div);
-      }
-    }
-  };
 
   // function for rendering the computers board to the DOM
   const renderComputerBoard = (computerBoardDiv) => {
@@ -119,91 +97,37 @@ function RenderGame() {
     }
   };
 
-  // displays the .create-ships div
-  const displayShipCreator = () => {
-    const container = document.createElement("div");
-    container.classList.add("create-ships");
-    const p = (document.createElement("p").textContent = "Create Ship");
-    const lengthInputContainer = createInputContainer(
-      "length",
-      "Ship Length:",
-      "number",
-    );
-    const directionContainer = createDirectionContainer();
-    const rowInputContainer = createInputContainer("row", "Row:", "number");
-    const collumnInputContainer = createInputContainer(
-      "col",
-      "Collumn:",
-      "number",
-    );
-
-    const placeBtn = createButton("Place Ship");
-    const resetBtn = createButton("Reset");
-
-    // initially set input values
-    lengthInputContainer.querySelector("input").value = "3";
-    directionContainer.querySelector("select").value = "v";
-    rowInputContainer.querySelector("input").value = "3";
-    collumnInputContainer.querySelector("input").value = "4";
-
-    placeBtn.addEventListener("click", () =>
-      placeShip(
-        lengthInputContainer.querySelector("input").value,
-        directionContainer.querySelector("select").value,
-        rowInputContainer.querySelector("input").value,
-        collumnInputContainer.querySelector("input").value,
-      ),
-    );
-    resetBtn.addEventListener("click", resetBoard);
-    container.append(
-      p,
-      lengthInputContainer,
-      directionContainer,
-      rowInputContainer,
-      collumnInputContainer,
-      placeBtn,
-      resetBtn,
-    );
-    return container;
-  };
-
-  // places a new Ship to the player's board
-  const placeShip = (len, dir, row, col) => {
-    player1.placeShip(len, dir, Number(row), Number(col));
-    const playerBoardDiv = document.querySelector(".board.player");
-    // display the updated board
-    playerBoardDiv.textContent = "";
-    renderPlayerBoard(playerBoardDiv);
-  };
-
-  // resets the player's board and .create-ships inputs
-  const resetBoard = () => {
-    // reset player
-    player1 = new Player();
-    document.querySelector(".board.player").textContent = "";
-    renderPlayerBoard(document.querySelector(".board.player"));
-
-    document.querySelector("#length").value = "";
-    document.querySelector("#direction").value = "h";
-    document.querySelector("#row").value = "";
-    document.querySelector("#col").value = "";
-  };
-
   const startGame = () => {
     // display the player and computer boards then remove start button
     document.querySelector(".boards-container").textContent = "";
-    document.body.removeChild(document.querySelector("button"));
+    const startBtn = document.querySelector("button.start");
+    const resetBtn = document.querySelector("button.reset");
+    startBtn.parentNode.removeChild(startBtn);
+    resetBtn.parentNode.removeChild(resetBtn);
     displayBoards();
   };
 
+  // displays the player's board, the draggable ships container and the start and reset buttons
   const displayStartScreen = () => {
     const playerBoard = document.createElement("div");
     playerBoard.classList.add("player", "board");
-    renderPlayerBoard(playerBoard);
-    boardsDiv.append(playerBoard, displayShipCreator());
+    renderPlayerBoard(player1, playerBoard);
+    boardsDiv.append(playerBoard, displayShips());
     const startBtn = createButton("start");
-    startBtn.addEventListener("click", () => startGame());
-    document.body.append(startBtn);
+    startBtn.addEventListener("click", startGame);
+    startBtn.classList.add("start");
+    const resetBtn = createButton("reset");
+    resetBtn.classList.add("reset");
+    // resets the player's board and .ships-container
+    resetBtn.addEventListener("click", () => {
+      player1.resetPlayer();
+      playerBoard.textContent = "";
+      renderPlayerBoard(player1, playerBoard);
+      const shipsContainer = document.querySelector(".ships-container");
+      shipsContainer.parentNode.removeChild(shipsContainer);
+      boardsDiv.append(displayShips());
+    });
+    document.body.append(startBtn, resetBtn);
 
     // place random ships to the computer's board
     compPlayer.randomlyPlaceShips();

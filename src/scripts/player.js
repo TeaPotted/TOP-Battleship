@@ -83,6 +83,14 @@ function Player() {
     gb.placeShip(row, col, len, dir);
   };
 
+  const placeShipIsPossible = (row, col, ship_len, direction) => {
+    return gb.placeShipIsPossible(row, col, ship_len, direction);
+  };
+
+  const resetPlayer = () => {
+    gb.reset();
+  };
+
   // randomly places 5 ships to the player's board
   const randomlyPlaceShips = () => {
     randomlyPlaceShip();
@@ -101,6 +109,8 @@ function Player() {
     allShipsSunk,
     placeShip,
     randomlyPlaceShips,
+    placeShipIsPossible,
+    resetPlayer,
   };
 }
 
