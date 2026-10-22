@@ -77,7 +77,7 @@ function RenderGame() {
 
     if (endGame === false) {
       // get random unexplored coordinate in the players board
-      const [row, col] = compPlayer.getRandomUnexploredCoordinate();
+      const [row, col] = player1.getRandomUnexploredCoordinate();
       player1.attack([row, col]);
 
       // find the div that contains the random coordinate
