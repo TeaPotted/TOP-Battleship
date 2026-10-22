@@ -86,6 +86,19 @@ test("allShipsSunk() returns false if all ships in the board are not sunk", () =
   expect(g.allShipsSunk()).toBe(false);
 });
 
+test("Player's unexploredCoordinates has all coordinates in the board as unexplored by default", () => {
+  const p = Player();
+  const mockFunc = jest.fn(() => {
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        expect(p.getUnexploredCoordinates.has(`${i}, ${j}`));
+      }
+    }
+  });
+
+  mockFunc();
+});
+
 test("getRandomUnexploredCoordinate returns a random unexplored coordinate in the board", () => {
   const p = Player();
   const mockFunc = jest.fn(() => {
@@ -101,6 +114,12 @@ test("getRandomUnexploredCoordinate returns a random unexplored coordinate in th
   expect(coord).toStrictEqual([6, 7]);
 });
 
+test("getRandomUnexploredCoordinate removes the generated coordinate from the gameboard's unexploredCoordinates", () => {
+  const p = Player();
+  const randCoord = p.getRandomUnexploredCoordinate();
+  expect(p.getUnexploredCoordinates.has(JSON.stringify(randCoord))).toBe(false);
+});
+
 test("reset() resets the whole gameboard", () => {
   const g = Gameboard();
   g.placeShip(0, 0, 1);
@@ -114,4 +133,5 @@ test("reset() resets the whole gameboard", () => {
   expect(g.missedShots).toStrictEqual([]);
   expect(g.ships).toStrictEqual([]);
   expect(g.exploredCoordinates.size).toBe(0);
+  expect(g.unexploredCoordinates.size).toBe(100);
 });

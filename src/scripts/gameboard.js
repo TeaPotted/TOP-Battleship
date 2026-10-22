@@ -1,11 +1,23 @@
 import { Ship } from "./ship.js";
 
+// return an array of all the coordinates in a 2d 10x10 board
+function getAllBoardCoordinates() {
+  let coords = [];
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      coords.push(JSON.stringify([i, j]));
+    }
+  }
+  return coords;
+}
+
 function Gameboard() {
   // board will be a 10x10 2d array
   let board = Array.from({ length: 10 }, () => new Array(10).fill(null));
   let missedShots = [];
   let ships = [];
   let exploredCoordinates = new Set();
+  let unexploredCoordinates = new Set(getAllBoardCoordinates());
 
   // returns true or false depending on if the given row or column is out of the board
   const shipIsOutOfBounds = (row, col) => {
@@ -63,6 +75,7 @@ function Gameboard() {
   // function for if the given coordinate contains a ship, call hit() on that ship
   const receiveAttack = (row, col) => {
     exploredCoordinates.add(JSON.stringify([row, col]));
+    unexploredCoordinates.delete(JSON.stringify([row, col]));
     // if the coordinate is empty, just add coordinate to missedShots
     if (board[row][col] === null) {
       missedShots.push([row, col]);
@@ -91,6 +104,7 @@ function Gameboard() {
     missedShots = [];
     ships.splice(0, ships.length);
     exploredCoordinates.clear();
+    getAllBoardCoordinates().forEach((i) => unexploredCoordinates.add(i));
   };
 
   return {
@@ -103,7 +117,8 @@ function Gameboard() {
     placeShipIsPossible,
     ships,
     reset,
+    unexploredCoordinates,
   };
 }
 
-export { Gameboard };
+export { Gameboard, getAllBoardCoordinates };

@@ -32,18 +32,18 @@ function Player() {
     return Math.floor(Math.random() * 10);
   };
 
+  const getUnexploredCoordinates = gb.unexploredCoordinates;
+
   // returns a random coordinate in the player's board that hasn't been explored before
   const getRandomUnexploredCoordinate = () => {
-    const exploredCoords = getExploredCoordinates();
-    let rand1 = getRandomNum();
-    let rand2 = getRandomNum();
-    // keep creating different a new random coordinate until random coordinate is not in exploredCoords
-    while (exploredCoords.has(JSON.stringify([rand1, rand2]))) {
-      rand1 = getRandomNum();
-      rand2 = getRandomNum();
-    }
-    exploredCoords.add(JSON.stringify([rand1, rand2]));
-    return [rand1, rand2];
+    const unexploredCoordinates = [...gb.unexploredCoordinates];
+    const randCoord =
+      unexploredCoordinates[
+        Math.floor(Math.random() * (unexploredCoordinates.length - 1))
+      ];
+
+    gb.unexploredCoordinates.delete(randCoord);
+    return JSON.parse(randCoord);
   };
 
   // returns the board's missed shots
@@ -111,6 +111,7 @@ function Player() {
     randomlyPlaceShips,
     placeShipIsPossible,
     resetPlayer,
+    getUnexploredCoordinates,
   };
 }
 
