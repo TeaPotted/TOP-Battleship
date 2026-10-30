@@ -1,7 +1,7 @@
+import { test, expect, jest } from "@jest/globals";
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
 import { Player } from "./player.js";
-import { getAdjacentCoords } from "./computer.js";
 
 test("hit() incremenents the times the ship has been hit", () => {
   const s = new Ship(3, "h");
