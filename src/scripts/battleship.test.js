@@ -1,6 +1,7 @@
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
 import { Player } from "./player.js";
+import { getAdjacentCoords } from "./computer.js";
 
 test("hit() incremenents the times the ship has been hit", () => {
   const s = new Ship(3, "h");
@@ -66,6 +67,13 @@ test("receiveAttack() calls the hit function on the ship at the given coordinate
   g.placeShip(0, 0, 1);
   g.receiveAttack(0, 0);
   expect(g.getBoard()[0][0].times_hit).toBe(1);
+});
+
+test("receiveAttack updates the amount of sunkShips if the attacked ship is was considered sunk", () => {
+  const g = Gameboard();
+  g.placeShip(0, 0, 1, "h");
+  g.receiveAttack(0, 0);
+  expect(g.getSunkShips()).toBe(1);
 });
 
 test("allShipsSunk() returns true if all ships in the board have been sunk", () => {
@@ -134,4 +142,5 @@ test("reset() resets the whole gameboard", () => {
   expect(g.ships).toStrictEqual([]);
   expect(g.exploredCoordinates.size).toBe(0);
   expect(g.unexploredCoordinates.size).toBe(100);
+  expect(g.getSunkShips()).toBe(0);
 });

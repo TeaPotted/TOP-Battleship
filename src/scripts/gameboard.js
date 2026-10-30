@@ -16,6 +16,7 @@ function Gameboard() {
   let board = Array.from({ length: 10 }, () => new Array(10).fill(null));
   let missedShots = [];
   let ships = [];
+  let sunkShips = 0;
   let exploredCoordinates = new Set();
   let unexploredCoordinates = new Set(getAllBoardCoordinates());
 
@@ -83,7 +84,11 @@ function Gameboard() {
     }
 
     board[row][col].hit();
+    // if the attacked ship has been sunk, update sunk ships
+    if (board[row][col].is_sunk) sunkShips++;
   };
+
+  const getSunkShips = () => sunkShips;
 
   // returns true or false whether or not all of their ships have been sunk.
   const allShipsSunk = () => {
@@ -103,6 +108,7 @@ function Gameboard() {
     board = Array.from({ length: 10 }, () => new Array(10).fill(null));
     missedShots = [];
     ships.splice(0, ships.length);
+    sunkShips = 0;
     exploredCoordinates.clear();
     getAllBoardCoordinates().forEach((i) => unexploredCoordinates.add(i));
   };
@@ -118,6 +124,7 @@ function Gameboard() {
     ships,
     reset,
     unexploredCoordinates,
+    getSunkShips,
   };
 }
 
