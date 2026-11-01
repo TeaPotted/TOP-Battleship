@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { createButton } from "./create-elems.js";
 import { displayShips, renderPlayerBoard } from "./start-modules.js";
+import { computerMakeAttack } from "./computer.js";
 
 function RenderGame() {
   let player1 = Player();
@@ -43,7 +44,13 @@ function RenderGame() {
         if (turn !== "computer") {
           compPlayer.attack(cell.coordinate);
           updateComputerBoard(div, cell.coordinate);
-          computerMakeAttack();
+          computerMakeAttack(
+            turn,
+            endGame,
+            player1,
+            checkGameStatus,
+            switchTurn,
+          );
         }
       };
       computerBoardDiv.append(div);
@@ -68,32 +75,6 @@ function RenderGame() {
       }
       checkGameStatus();
       switchTurn();
-    }
-  };
-
-  // makes an attack on the player's board as the computer
-  const computerMakeAttack = () => {
-    if (turn == "player") return;
-
-    if (endGame === false) {
-      // get random unexplored coordinate in the players board
-      const [row, col] = player1.getRandomUnexploredCoordinate();
-      player1.attack([row, col]);
-
-      // find the div that contains the random coordinate
-      const div = document.querySelector(
-        `.board.player div[data-coordinate="${[row, col]}"`,
-      );
-
-      // wait a few seconds before switching turns
-      setTimeout(() => {
-        // if the attacked coordinate was a ship, give div a class of 'hit'
-        if (player1.getCell(row, col) !== null) div.classList.add("hit");
-        // else give a class of 'miss'
-        else div.classList.add("miss");
-        checkGameStatus();
-        switchTurn();
-      }, 0);
     }
   };
 

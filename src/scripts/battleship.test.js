@@ -2,6 +2,7 @@ import { test, expect, jest } from "@jest/globals";
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
 import { Player } from "./player.js";
+import { getAdjacentCoords } from "./computer.js";
 
 test("hit() incremenents the times the ship has been hit", () => {
   const s = new Ship(3, "h");
@@ -143,4 +144,24 @@ test("reset() resets the whole gameboard", () => {
   expect(g.exploredCoordinates.size).toBe(0);
   expect(g.unexploredCoordinates.size).toBe(100);
   expect(g.getSunkShips()).toBe(0);
+});
+
+test("generateMoves returns an array of all possible moves you can make from the given coordinate", () => {
+  const coord1 = [0, 0];
+  const coord2 = [9, 9];
+  const coord3 = [1, 1];
+  expect(getAdjacentCoords(coord1)).toStrictEqual([
+    [0, 1],
+    [1, 0],
+  ]);
+  expect(getAdjacentCoords(coord2)).toStrictEqual([
+    [9, 8],
+    [8, 9],
+  ]);
+  expect(getAdjacentCoords(coord3)).toStrictEqual([
+    [1, 0],
+    [0, 1],
+    [1, 2],
+    [2, 1],
+  ]);
 });

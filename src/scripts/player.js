@@ -49,7 +49,7 @@ function Player() {
   // returns the board's missed shots
   const getMissedShots = () => gb.missedShots;
 
-  const getExploredCoordinates = () => gb.exploredCoordinates;
+  const getExploredCoordinates = gb.exploredCoordinates;
 
   const allShipsSunk = () => gb.allShipsSunk();
 
@@ -91,6 +91,8 @@ function Player() {
     gb.reset();
   };
 
+  const getSunkShips = () => gb.getSunkShips();
+
   // randomly places 5 ships to the player's board
   const randomlyPlaceShips = () => {
     randomlyPlaceShip();
@@ -112,6 +114,7 @@ function Player() {
     placeShipIsPossible,
     resetPlayer,
     getUnexploredCoordinates,
+    getSunkShips,
   };
 }
 
