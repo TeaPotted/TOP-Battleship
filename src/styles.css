@@ -105,3 +105,170 @@ body {
 .titleScreen-container p.credits a {
   color: #eee;
 }
+
+.startScreen-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.boards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.boards-container .container {
+  text-align: center;
+}
+
+.boards-container .container:first-of-type > p {
+  font-family: "super whales", sans-serif;
+  color: navy;
+  font-size: 2rem;
+}
+
+.boards-container .container:nth-of-type(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.boards-container .ships-container {
+  justify-self: center;
+  margin-bottom: auto;
+}
+
+.boards-container .container:nth-of-type(2) > p {
+  font-family: "super whales", sans-serif;
+  color: darkslategrey;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  margin: 10px;
+}
+
+.board .ship {
+  background-color: blue;
+}
+
+.board .miss {
+  background-color: lightgrey;
+}
+
+.board > div {
+  outline: 1px solid darkgrey;
+}
+
+.board,
+.ships-container {
+  width: 30vw;
+  height: 30vw;
+  background-color: #eee;
+}
+
+.ships-container {
+  margin: 10px;
+  position: relative;
+  display: grid;
+}
+
+.vertical-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vertical-container,
+.horizontal-container {
+  width: 100%;
+  height: 100%;
+}
+
+.vertical-container .ship,
+.horizontal-container .ship {
+  cursor: grab;
+}
+
+.horizontal-container {
+  align-content: center;
+  justify-items: center;
+  display: none;
+}
+
+.horizontal-container .ship {
+  display: flex;
+  margin-top: 4px;
+}
+
+.vertical-container .ship {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ship > div {
+  background-color: blue;
+  outline: 1px solid lightgrey;
+}
+
+.ships-container .changeShip-container {
+  position: absolute;
+  bottom: 10px;
+  justify-self: center;
+}
+
+.ships-container button {
+  font-size: 0.8em;
+  border: 1px solid rgb(5, 79, 79);
+  width: fit-content;
+  height: fit-content;
+  margin-bottom: 8px;
+  font-family: "super whales";
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: teal;
+  color: whitesmoke;
+  cursor: pointer;
+  /* -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);  */
+  box-shadow:
+    0px 10px 13px -10px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.changeShip-container p {
+  font-size: 0.7em;
+  font-family: sans-serif;
+  color: grey;
+}
+
+.startScreen-container > div:last-child {
+  display: flex;
+  margin-top: 1em;
+  gap: 1em;
+}
+
+.startScreen-container > div:last-child button {
+  font-family: "stairsnslabs";
+  font-size: 1.5rem;
+  padding: 10px;
+  border-radius: 10px;
+  border-style: inset;
+  cursor: pointer;
+  /* border: 1px solid darkgreen; */
+}
+
+.startScreen-container .start {
+  background-color: lime;
+}
+
+.startScreen-container .reset {
+  background-color: crimson;
+}

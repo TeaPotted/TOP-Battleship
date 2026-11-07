@@ -1,5 +1,4 @@
 import { Player } from "./player.js";
-import { createButton } from "./create-elems.js";
 import { displayShips, renderPlayerBoard } from "./start-modules.js";
 import { computerMakeAttack } from "./computer.js";
 
@@ -8,7 +7,6 @@ function RenderGame() {
   const compPlayer = Player();
   let turn = "player";
   let endGame = false;
-  const boardsDiv = document.querySelector(".boards-container");
 
   // function for displaying both the player's and computer's board on the DOM
   const displayBoards = () => {
@@ -19,7 +17,9 @@ function RenderGame() {
 
     renderPlayerBoard(player1, playerBoard);
     renderComputerBoard(computerBoard);
-    boardsDiv.append(playerBoard, computerBoard);
+    document
+      .querySelector(".boards-container")
+      .append(playerBoard, computerBoard);
   };
 
   // stops the game if either players ships have all been sunk
@@ -90,27 +90,55 @@ function RenderGame() {
 
   // displays the player's board, the draggable ships container and the start and reset buttons
   const displayStartScreen = () => {
+    // startScreen-container
+    const startScreenContainer = document.createElement("div");
+    startScreenContainer.classList.add("startScreen-container");
+
+    // boards container
+    const boardsContainerDiv = document.createElement("div");
+    boardsContainerDiv.classList.add("boards-container");
+
+    // player container
+    const playerContainer = document.createElement("div");
+    playerContainer.classList.add("container");
+    const playerPara = document.createElement("p");
+    playerPara.textContent = "YOUR BOARD";
     const playerBoard = document.createElement("div");
     playerBoard.classList.add("player", "board");
     renderPlayerBoard(player1, playerBoard);
-    boardsDiv.append(playerBoard, displayShips());
-    const startBtn = createButton("start");
-    startBtn.addEventListener("click", startGame);
+    playerContainer.append(playerPara, playerBoard);
+
+    // ships container
+    const shipsContainer = document.createElement("div");
+    shipsContainer.classList.add("container");
+    const shipsPara = document.createElement("p");
+    shipsPara.textContent = "drag a ship to your board";
+    shipsContainer.append(shipsPara, displayShips(playerContainer.offsetWidth));
+
+    boardsContainerDiv.append(playerContainer, shipsContainer);
+
+    // buttons container
+    const buttonsDiv = document.createElement("div");
+    const startBtn = document.createElement("button");
     startBtn.classList.add("start");
-    const resetBtn = createButton("reset");
+    startBtn.textContent = "START";
+    const resetBtn = document.createElement("button");
     resetBtn.classList.add("reset");
-    // resets the player's board and .ships-container
+    resetBtn.textContent = "RESET";
+
+    startBtn.addEventListener("click", startGame);
     resetBtn.addEventListener("click", () => {
+      // reset the player's board and ships-container
       player1.resetPlayer();
       playerBoard.textContent = "";
       renderPlayerBoard(player1, playerBoard);
-      const shipsContainer = document.querySelector(".ships-container");
-      shipsContainer.parentNode.removeChild(shipsContainer);
-      boardsDiv.append(displayShips());
+      shipsContainer.removeChild(document.querySelector(".ships-container"));
+      shipsContainer.append(displayShips());
     });
-    document.body.append(startBtn, resetBtn);
 
-    // place random ships to the computer's board
+    buttonsDiv.append(startBtn, resetBtn);
+    startScreenContainer.append(boardsContainerDiv, buttonsDiv);
+    document.body.append(startScreenContainer);
     compPlayer.randomlyPlaceShips();
   };
   return { displayBoards, displayStartScreen };

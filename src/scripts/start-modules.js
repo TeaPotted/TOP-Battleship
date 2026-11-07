@@ -8,11 +8,11 @@ const createShip = (len, dir) => {
   shipDiv.dataset.direction = dir;
   shipDiv.draggable = true;
   if (dir === "v") {
-    shipDiv.style.height = `${len * 2}0%`;
+    shipDiv.style.height = `${len}0%`;
     shipDiv.style.width = "10%";
   } else {
     shipDiv.style.width = `${len}0%`;
-    shipDiv.style.height = "20%";
+    shipDiv.style.height = "10%";
   }
 
   for (let i = 0; i < len; i++) {
@@ -114,16 +114,26 @@ const displayShips = () => {
     createShip(5, "h"),
   );
 
+  // div for change ship button and paragraph
+  const changeShipTypeDiv = document.createElement("div");
+  changeShipTypeDiv.classList.add("changeShip-container");
+
   // button for switches displaying either horizontal or vertical ships
   const changeShipType = document.createElement("button");
   changeShipType.classList.add("vertical");
   changeShipType.textContent = "VERTICAL";
 
+  const p = document.createElement("p");
+  p.textContent = "click to display different directions";
+
+  changeShipTypeDiv.append(changeShipType, p);
   changeShipType.addEventListener("click", () => {
+    // if the current displayed ships are vertical, switch to the horizontal ships
     if (changeShipType.textContent === "VERTICAL") {
       changeShipType.textContent = "HORIZONTAL";
       verticalShips.style.display = "none";
       horizontalShips.style.display = "block";
+      // else, display the vertical ships
     } else {
       changeShipType.textContent = "VERTICAL";
       horizontalShips.style.display = "none";
@@ -131,7 +141,7 @@ const displayShips = () => {
     }
   });
 
-  container.append(verticalShips, horizontalShips, changeShipType);
+  container.append(verticalShips, horizontalShips, changeShipTypeDiv);
   return container;
 };
 
