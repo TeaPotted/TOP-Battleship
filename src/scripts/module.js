@@ -9,7 +9,7 @@ function RenderGame() {
   let endGame = false;
 
   // function for displaying both the player's and computer's board on the DOM
-  const displayBoards = () => {
+  const getBoards = () => {
     const playerBoard = document.createElement("div");
     playerBoard.classList.add("board", "player");
     const computerBoard = document.createElement("div");
@@ -17,9 +17,7 @@ function RenderGame() {
 
     renderPlayerBoard(player1, playerBoard);
     renderComputerBoard(computerBoard);
-    document
-      .querySelector(".boards-container")
-      .append(playerBoard, computerBoard);
+    return [playerBoard, computerBoard];
   };
 
   // stops the game if either players ships have all been sunk
@@ -30,8 +28,10 @@ function RenderGame() {
     }
   };
 
-  const switchTurn = () =>
+  const switchTurn = () => {
     turn === "player" ? (turn = "computer") : (turn = "player");
+    document.querySelector("#turn").textContent = turn;
+  };
 
   // function for rendering the computers board to the DOM
   const renderComputerBoard = (computerBoardDiv) => {
@@ -42,8 +42,14 @@ function RenderGame() {
       // when div is clicked, call attack on the cell's coordinate and update computer's board
       div.onclick = () => {
         if (turn !== "computer") {
+          const compShipsLeftSpan = document.querySelector(
+            "#computer-shipsLeft",
+          );
           compPlayer.attack(cell.coordinate);
           updateComputerBoard(div, cell.coordinate);
+
+          if (compShipsLeftSpan.textContent > compPlayer.getShipsLeft())
+            compShipsLeftSpan.textContent = compPlayer.getShipsLeft();
           computerMakeAttack(
             turn,
             endGame,
@@ -79,13 +85,56 @@ function RenderGame() {
   };
 
   const startGame = () => {
-    // display the player and computer boards then remove start button
-    document.querySelector(".boards-container").textContent = "";
-    const startBtn = document.querySelector("button.start");
-    const resetBtn = document.querySelector("button.reset");
-    startBtn.parentNode.removeChild(startBtn);
-    resetBtn.parentNode.removeChild(resetBtn);
-    displayBoards();
+    document.querySelector(".startScreen-container").remove();
+    const [playerBoard, computerBoard] = getBoards();
+
+    // display the player and computer's board and the quit button
+    const displayGameContainer = document.createElement("div");
+    displayGameContainer.classList.add("game-container");
+    // p.display-turn
+    const displayTurn = document.createElement("p");
+    displayTurn.classList.add("display-turn");
+    displayTurn.innerHTML = `<span id="turn">${turn}</span>'s turn`;
+
+    // boards-container
+    const boardsContainerDiv = document.createElement("div");
+    boardsContainerDiv.classList.add("boards-container");
+
+    // player's container
+    const playerContainer = document.createElement("div");
+    playerContainer.classList.add("container");
+    const youPara = document.createElement("p");
+    youPara.textContent = "YOU";
+    const playerShipsLeftPara = document.createElement("p");
+    playerShipsLeftPara.innerHTML = `Ships left: <span id="player-shipsLeft">${player1.getShipsLeft()}</span>`;
+    playerContainer.append(youPara, playerBoard, playerShipsLeftPara);
+
+    // computer's container
+    const computerContainer = document.createElement("div");
+    computerContainer.classList.add("container");
+    const computerPara = document.createElement("p");
+    computerPara.textContent = "COMPUTER";
+    const compShipsLeftPara = document.createElement("p");
+    compShipsLeftPara.innerHTML = `Ships left: <span id="computer-shipsLeft">${compPlayer.getShipsLeft()}</span>`;
+    computerContainer.append(computerPara, computerBoard, compShipsLeftPara);
+
+    boardsContainerDiv.append(playerContainer, computerContainer);
+    const quitBtn = document.createElement("button");
+    quitBtn.classList.add("quit");
+    quitBtn.textContent = "QUIT";
+    // p.instruction
+    const instructionP = document.createElement("p");
+    instructionP.textContent =
+      "click a square in the computer's board to make an attack";
+    instructionP.classList.add("instruction");
+
+    displayGameContainer.append(
+      displayTurn,
+      boardsContainerDiv,
+      instructionP,
+      quitBtn,
+    );
+    document.body.append(displayGameContainer);
   };
 
   // displays the player's board, the draggable ships container and the start and reset buttons
@@ -141,7 +190,7 @@ function RenderGame() {
     document.body.append(startScreenContainer);
     compPlayer.randomlyPlaceShips();
   };
-  return { displayBoards, displayStartScreen };
+  return { getBoards, displayStartScreen, startGame };
 }
 
 export { RenderGame };

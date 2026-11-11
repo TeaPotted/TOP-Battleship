@@ -41,6 +41,14 @@ function resetNextCoorAndQueue() {
   queue = [];
 }
 
+// updates #player-shipsLeft textContent
+function updatePlayerShipsLeft(player) {
+  const shipsLeftSpan = document.querySelector("#player-shipsLeft");
+  if (shipsLeftSpan.textContent !== player.getShipsLeft()) {
+    shipsLeftSpan.textContent = player.getShipsLeft();
+  }
+}
+
 // makes the computer make an attack to the player's board
 function computerMakeAttack(
   turn,
@@ -71,6 +79,7 @@ function computerMakeAttack(
         div.classList.add("hit");
         if (player.getSunkShips() > playerSunkShips) {
           resetNextCoorAndQueue();
+          updatePlayerShipsLeft(player);
         } else
           getNextCoordinateToAttack(
             [row, col],
@@ -91,7 +100,7 @@ function computerMakeAttack(
           );
         } else resetNextCoorAndQueue();
       }
-      // check if there is a winner before switching to turn to player
+      // check if there is a winner before switching turn to player
       checkGameStatus();
       switchTurn();
     }, 1300);

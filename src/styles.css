@@ -14,6 +14,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("./fonts/PressStart2P.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   padding: 0px;
   margin: 0px;
@@ -106,6 +114,8 @@ body {
   color: #eee;
 }
 
+/* starting screen */
+
 .startScreen-container {
   width: 100vw;
   height: 100vh;
@@ -126,13 +136,13 @@ body {
   text-align: center;
 }
 
-.boards-container .container:first-of-type > p {
+.startScreen-container > .boards-container .container:first-of-type > p {
   font-family: "super whales", sans-serif;
   color: navy;
   font-size: 2rem;
 }
 
-.boards-container .container:nth-of-type(2) {
+.startScreen-container > .boards-container .container:nth-of-type(2) {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,7 +154,7 @@ body {
   margin-bottom: auto;
 }
 
-.boards-container .container:nth-of-type(2) > p {
+.startScreen-container > .boards-container .container:nth-of-type(2) > p {
   font-family: "super whales", sans-serif;
   color: darkslategrey;
 }
@@ -159,18 +169,22 @@ body {
   background-color: blue;
 }
 
+.board .ship.hit {
+  background-color: red;
+}
+
 .board .miss {
-  background-color: lightgrey;
+  background-color: darkgrey;
 }
 
 .board > div {
-  outline: 1px solid darkgrey;
+  outline: 1px solid rgb(188, 187, 187);
 }
 
 .board,
 .ships-container {
-  width: 30vw;
-  height: 30vw;
+  width: 28vw;
+  height: 28vw;
   background-color: #eee;
 }
 
@@ -271,4 +285,63 @@ body {
 
 .startScreen-container .reset {
   background-color: crimson;
+}
+
+/* game screen */
+
+.game-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-turn {
+  font-size: 2rem;
+  font-family: "super whales", sans-serif;
+  text-transform: capitalize;
+  color: black;
+}
+
+.game-container .boards-container {
+  margin-top: 5vh;
+}
+
+.game-container .container p:first-child {
+  font-family: "stairsnslabs", sans-serif;
+}
+
+.game-container .container:first-of-type p:first-child {
+  color: navy;
+  text-shadow: 4px 3px 0 #707070;
+}
+
+.game-container .container:last-of-type p:first-child {
+  color: brown;
+  text-shadow: 4px 3px 0 #7a7a7a;
+}
+
+.game-container .container p:last-of-type {
+  font-family: "super whales";
+  color: #262525;
+}
+
+.game-container .instruction {
+  margin-top: 10px;
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 0.8em;
+}
+
+.game-container .quit {
+  position: absolute;
+  top: 2%;
+  left: 1.5%;
+  font-family: "Press Start 2P";
+  font-size: 1em;
+  padding: 5px;
+  background-color: red;
+  cursor: pointer;
 }
