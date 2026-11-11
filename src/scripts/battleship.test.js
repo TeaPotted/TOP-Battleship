@@ -129,6 +129,14 @@ test("getRandomUnexploredCoordinate removes the generated coordinate from the ga
   expect(p.getUnexploredCoordinates.has(JSON.stringify(randCoord))).toBe(false);
 });
 
+test("getShipsLeft returns the amount of ships that have not sunk", () => {
+  const p = Player();
+  p.placeShip(1, "v", 0, 0);
+  expect(p.getShipsLeft()).toBe(1);
+  p.attack([0, 0]);
+  expect(p.getShipsLeft()).toBe(0);
+});
+
 test("reset() resets the whole gameboard", () => {
   const g = Gameboard();
   g.placeShip(0, 0, 1);

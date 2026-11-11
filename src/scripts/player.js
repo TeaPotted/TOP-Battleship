@@ -93,6 +93,8 @@ function Player() {
 
   const getSunkShips = () => gb.getSunkShips();
 
+  const getShipsLeft = () => gb.ships.filter((s) => !s.is_sunk).length;
+
   // randomly places 5 ships to the player's board
   const randomlyPlaceShips = () => {
     randomlyPlaceShip();
@@ -115,6 +117,7 @@ function Player() {
     resetPlayer,
     getUnexploredCoordinates,
     getSunkShips,
+    getShipsLeft,
   };
 }
 
