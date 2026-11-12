@@ -65,7 +65,7 @@ test("placeShip() does nothing if the created ship is out of bounds", () => {
 
 test("receiveAttack() calls the hit function on the ship at the given coordinate", () => {
   const g = Gameboard();
-  g.placeShip(0, 0, 1);
+  g.placeShip(0, 0, 1, "h");
   g.receiveAttack(0, 0);
   expect(g.getBoard()[0][0].times_hit).toBe(1);
 });
@@ -79,8 +79,8 @@ test("receiveAttack updates the amount of sunkShips if the attacked ship is was 
 
 test("allShipsSunk() returns true if all ships in the board have been sunk", () => {
   const g = Gameboard();
-  g.placeShip(0, 0, 1);
-  g.placeShip(1, 0, 1);
+  g.placeShip(0, 0, 1, "h");
+  g.placeShip(1, 0, 1, "v");
   g.receiveAttack(0, 0);
   g.receiveAttack(1, 0);
 
@@ -89,8 +89,8 @@ test("allShipsSunk() returns true if all ships in the board have been sunk", () 
 
 test("allShipsSunk() returns false if all ships in the board are not sunk", () => {
   const g = Gameboard();
-  g.placeShip(0, 0, 1);
-  g.placeShip(0, 1, 1);
+  g.placeShip(0, 0, 1, "h");
+  g.placeShip(0, 1, 1, "v");
   g.receiveAttack(0, 0);
   expect(g.allShipsSunk()).toBe(false);
 });
@@ -139,8 +139,8 @@ test("getShipsLeft returns the amount of ships that have not sunk", () => {
 
 test("reset() resets the whole gameboard", () => {
   const g = Gameboard();
-  g.placeShip(0, 0, 1);
-  g.placeShip(0, 1, 1);
+  g.placeShip(0, 0, 1, "h");
+  g.placeShip(0, 1, 1, "v");
   g.receiveAttack(0, 0);
   g.reset();
 
