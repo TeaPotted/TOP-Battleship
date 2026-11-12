@@ -106,7 +106,7 @@ function Gameboard() {
   // resets board, missedShots and exploredCoordinates
   const reset = () => {
     board = Array.from({ length: 10 }, () => new Array(10).fill(null));
-    missedShots = [];
+    missedShots.splice(0, missedShots.length);
     ships.splice(0, ships.length);
     sunkShips = 0;
     exploredCoordinates.clear();

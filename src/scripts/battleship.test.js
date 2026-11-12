@@ -152,6 +152,10 @@ test("reset() resets the whole gameboard", () => {
   expect(g.exploredCoordinates.size).toBe(0);
   expect(g.unexploredCoordinates.size).toBe(100);
   expect(g.getSunkShips()).toBe(0);
+
+  g.placeShip(0, 0, 1, "h");
+  g.receiveAttack(9, 0);
+  expect(g.missedShots).toEqual([[9, 0]]);
 });
 
 test("generateMoves returns an array of all possible moves you can make from the given coordinate", () => {
