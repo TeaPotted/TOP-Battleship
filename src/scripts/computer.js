@@ -1,5 +1,6 @@
 let queue;
 let nextCoord;
+let timeOut;
 
 // returns all possible moves you can make in the board from the given coordinate
 function getAdjacentCoords(startCoord) {
@@ -73,7 +74,7 @@ function computerMakeAttack(
     );
 
     // wait a few seconds before switching turns
-    setTimeout(() => {
+    timeOut = setTimeout(() => {
       // if the attacked coordinate was a ship, give div a class of 'hit'
       if (player.getCell(row, col) !== null) {
         div.classList.add("hit");
@@ -107,4 +108,4 @@ function computerMakeAttack(
   }
 }
 
-export { getAdjacentCoords, computerMakeAttack };
+export { getAdjacentCoords, computerMakeAttack, timeOut };

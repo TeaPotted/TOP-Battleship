@@ -1,6 +1,6 @@
 import { Player } from "./player.js";
 import { displayShips, renderPlayerBoard } from "./start-modules.js";
-import { computerMakeAttack } from "./computer.js";
+import { computerMakeAttack, timeOut } from "./computer.js";
 
 function RenderGame() {
   let player1 = Player();
@@ -84,6 +84,17 @@ function RenderGame() {
     }
   };
 
+  // resets the whole game before displayng back the title screen
+  const resetGame = () => {
+    clearTimeout(timeOut);
+    turn = "player";
+    endGame = false;
+    player1.resetPlayer();
+    compPlayer.resetPlayer();
+    document.querySelector(".game-container").remove();
+    document.querySelector(".titleScreen-container").style.display = "flex";
+  };
+
   const startGame = () => {
     document.querySelector(".startScreen-container").remove();
     const [playerBoard, computerBoard] = getBoards();
@@ -122,6 +133,8 @@ function RenderGame() {
     const quitBtn = document.createElement("button");
     quitBtn.classList.add("quit");
     quitBtn.textContent = "QUIT";
+    quitBtn.addEventListener("click", resetGame);
+
     // p.instruction
     const instructionP = document.createElement("p");
     instructionP.textContent =
