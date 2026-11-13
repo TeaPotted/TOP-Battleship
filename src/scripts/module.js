@@ -41,7 +41,7 @@ function RenderGame() {
       div.dataset.coordinate = cell.coordinate;
       // when div is clicked, call attack on the cell's coordinate and update computer's board
       div.onclick = () => {
-        if (turn !== "computer") {
+        if (turn !== "computer" && div.classList.contains("empty")) {
           const compShipsLeftSpan = document.querySelector(
             "#computer-shipsLeft",
           );
@@ -73,11 +73,11 @@ function RenderGame() {
           compPlayer.getMissedShots()[compPlayer.getMissedShots().length - 1],
         ) === JSON.stringify(coordinate)
       ) {
-        div.classList.add("miss");
+        div.classList.replace("empty", "miss");
       }
       // else give a class of 'ship'
       else {
-        div.classList.add("ship");
+        div.classList.replace("empty", "ship");
       }
       checkGameStatus();
       switchTurn();
