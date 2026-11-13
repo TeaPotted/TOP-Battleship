@@ -125,6 +125,13 @@ body {
   justify-content: center;
 }
 
+.startScreen-container .error {
+  font-family: "press start 2p";
+  color: red;
+  position: absolute;
+  top: 4%;
+}
+
 .boards-container {
   display: flex;
   justify-content: center;
@@ -263,13 +270,13 @@ body {
   color: grey;
 }
 
-.startScreen-container > div:last-child {
+.startScreen-container > div:last-of-type {
   display: flex;
   margin-top: 1em;
   gap: 1em;
 }
 
-.startScreen-container > div:last-child button {
+.startScreen-container > div:last-of-type button {
   font-family: "stairsnslabs";
   font-size: 1.5rem;
   padding: 10px;

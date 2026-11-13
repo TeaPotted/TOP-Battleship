@@ -150,6 +150,19 @@ function RenderGame() {
     document.body.append(displayGameContainer);
   };
 
+  // appends a p.error element to the given div
+  const showErrorMsg = (message, divToDisplay) => {
+    if (
+      document.querySelector(".startScreen-container").querySelector("p.error")
+    )
+      return;
+    const msg = document.createElement("p");
+    msg.classList.add("error");
+    msg.textContent = message;
+
+    divToDisplay.append(msg);
+  };
+
   // displays the player's board, the draggable ships container and the start and reset buttons
   const displayStartScreen = () => {
     // startScreen-container
@@ -188,7 +201,11 @@ function RenderGame() {
     resetBtn.classList.add("reset");
     resetBtn.textContent = "RESET";
 
-    startBtn.addEventListener("click", startGame);
+    startBtn.addEventListener("click", () => {
+      if (player1.getShipsLeft() > 0) startGame();
+      else
+        showErrorMsg("You need to place atleast 1 ship!", startScreenContainer);
+    });
     resetBtn.addEventListener("click", () => {
       // reset the player's board and ships-container
       player1.resetPlayer();
@@ -196,6 +213,12 @@ function RenderGame() {
       renderPlayerBoard(player1, playerBoard);
       shipsContainer.removeChild(document.querySelector(".ships-container"));
       shipsContainer.append(displayShips());
+
+      if (startScreenContainer.querySelector("p.error")) {
+        startScreenContainer.removeChild(
+          startScreenContainer.querySelector("p.error"),
+        );
+      }
     });
 
     buttonsDiv.append(startBtn, resetBtn);

@@ -82,6 +82,12 @@ function dragAndDropShip(player, playerBoardDiv, cell, e) {
     if (player.placeShipIsPossible(row, col, length, direction) === false) {
       return;
     }
+    // if .startScreen contains p.error, remove it
+    const startScreenContainer = document.querySelector(".startScreen-container");
+    if (startScreenContainer.querySelector("p.error")) {
+      startScreenContainer.removeChild(startScreenContainer.querySelector("p.error"));
+    }
+      
     player.placeShip(Number(length), direction, row, col);
     playerBoardDiv.textContent = "";
     renderPlayerBoard(player, playerBoardDiv);
