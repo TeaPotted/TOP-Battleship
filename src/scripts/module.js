@@ -1,4 +1,5 @@
 import { Player } from "./player.js";
+import { createDiv, createBtn } from "./create-elems.js";
 import { displayShips, renderPlayerBoard } from "./start-modules.js";
 import { computerMakeAttack, timeOut } from "./computer.js";
 import { displayWinScreen, displayLoseScreen } from "./end-modules.js";
@@ -8,15 +9,11 @@ function RenderGame() {
   const compPlayer = Player();
   let turn = "player";
   let endGame = false;
-  // player1.placeShip(1, "h", 0, 0);
-  // compPlayer.placeShip(1, "v", 0, 0);
 
   // function for displaying both the player's and computer's board on the DOM
   const getBoards = () => {
-    const playerBoard = document.createElement("div");
-    playerBoard.classList.add("board", "player");
-    const computerBoard = document.createElement("div");
-    computerBoard.classList.add("board", "computer");
+    const playerBoard = createDiv("board", "player");
+    const computerBoard = createDiv("board", "computer");
 
     renderPlayerBoard(player1, playerBoard);
     renderComputerBoard(computerBoard);
@@ -46,8 +43,7 @@ function RenderGame() {
   // function for rendering the computers board to the DOM
   const renderComputerBoard = (computerBoardDiv) => {
     compPlayer.getCells().forEach((cell) => {
-      const div = document.createElement("div");
-      div.classList.add("empty");
+      const div = createDiv("empty");
       div.dataset.coordinate = cell.coordinate;
       // when div is clicked, call attack on the cell's coordinate and update computer's board
       div.onclick = () => {
@@ -109,20 +105,17 @@ function RenderGame() {
     const [playerBoard, computerBoard] = getBoards();
 
     // display the player and computer's board and the quit button
-    const displayGameContainer = document.createElement("div");
-    displayGameContainer.classList.add("game-container");
+    const displayGameContainer = createDiv("game-container");
     // p.display-turn
     const displayTurn = document.createElement("p");
     displayTurn.classList.add("display-turn");
     displayTurn.innerHTML = `<span id="turn">${turn}</span>'s turn`;
 
     // boards-container
-    const boardsContainerDiv = document.createElement("div");
-    boardsContainerDiv.classList.add("boards-container");
+    const boardsContainerDiv = createDiv("boards-container");
 
     // player's container
-    const playerContainer = document.createElement("div");
-    playerContainer.classList.add("container");
+    const playerContainer = createDiv("container");
     const youPara = document.createElement("p");
     youPara.textContent = "YOU";
     const playerShipsLeftPara = document.createElement("p");
@@ -130,8 +123,7 @@ function RenderGame() {
     playerContainer.append(youPara, playerBoard, playerShipsLeftPara);
 
     // computer's container
-    const computerContainer = document.createElement("div");
-    computerContainer.classList.add("container");
+    const computerContainer = createDiv("container");
     const computerPara = document.createElement("p");
     computerPara.textContent = "COMPUTER";
     const compShipsLeftPara = document.createElement("p");
@@ -139,9 +131,7 @@ function RenderGame() {
     computerContainer.append(computerPara, computerBoard, compShipsLeftPara);
 
     boardsContainerDiv.append(playerContainer, computerContainer);
-    const quitBtn = document.createElement("button");
-    quitBtn.classList.add("quit");
-    quitBtn.textContent = "QUIT";
+    const quitBtn = createBtn("QUIT", "quit");
     quitBtn.addEventListener("click", () => {
       resetGame();
       document.querySelector(".titleScreen-container").style.display = "flex";
@@ -178,26 +168,21 @@ function RenderGame() {
   // displays the player's board, the draggable ships container and the start and reset buttons
   const displayStartScreen = () => {
     // startScreen-container
-    const startScreenContainer = document.createElement("div");
-    startScreenContainer.classList.add("startScreen-container");
+    const startScreenContainer = createDiv("startScreen-container");
 
     // boards container
-    const boardsContainerDiv = document.createElement("div");
-    boardsContainerDiv.classList.add("boards-container");
+    const boardsContainerDiv = createDiv("boards-container");
 
     // player container
-    const playerContainer = document.createElement("div");
-    playerContainer.classList.add("container");
+    const playerContainer = createDiv("container");
     const playerPara = document.createElement("p");
     playerPara.textContent = "YOUR BOARD";
-    const playerBoard = document.createElement("div");
-    playerBoard.classList.add("player", "board");
+    const playerBoard = createDiv("player", "board");
     renderPlayerBoard(player1, playerBoard);
     playerContainer.append(playerPara, playerBoard);
 
     // ships container
-    const shipsContainer = document.createElement("div");
-    shipsContainer.classList.add("container");
+    const shipsContainer = createDiv("container");
     const shipsPara = document.createElement("p");
     shipsPara.textContent = "drag a ship to your board";
     shipsContainer.append(shipsPara, displayShips(playerContainer.offsetWidth));
@@ -205,13 +190,9 @@ function RenderGame() {
     boardsContainerDiv.append(playerContainer, shipsContainer);
 
     // buttons container
-    const buttonsDiv = document.createElement("div");
-    const startBtn = document.createElement("button");
-    startBtn.classList.add("start");
-    startBtn.textContent = "START";
-    const resetBtn = document.createElement("button");
-    resetBtn.classList.add("reset");
-    resetBtn.textContent = "RESET";
+    const buttonsDiv = createDiv();
+    const startBtn = createBtn("START", "start");
+    const resetBtn = createBtn("RESET", "reset");
 
     startBtn.addEventListener("click", () => {
       if (player1.getShipsLeft() > 0) startGame();
@@ -236,9 +217,7 @@ function RenderGame() {
     buttonsDiv.append(startBtn, resetBtn);
 
     // back button
-    const backBtn = document.createElement("button");
-    backBtn.textContent = "BACK";
-    backBtn.classList.add("back");
+    const backBtn = createBtn("BACK", "back");
     backBtn.addEventListener("click", () => {
       player1.resetPlayer();
       compPlayer.resetPlayer();
