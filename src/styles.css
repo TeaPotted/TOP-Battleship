@@ -352,3 +352,69 @@ body {
   background-color: red;
   cursor: pointer;
 }
+
+/* ENDING CONTAINER */
+
+.end-container {
+  position: absolute;
+  top: 0%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* WIN CONTAINER */
+
+.win-container,
+.lose-container {
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 50vw;
+  height: 50vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.win-container p.text,
+.lose-container p.text {
+  font-family: "press start 2p", monospace;
+  font-size: 1.5em;
+}
+
+.win-container p.text {
+  color: gold;
+}
+
+.lose-container p.text {
+  color: red;
+}
+
+.win-container span,
+.lose-container span {
+  margin-top: 3%;
+  font-size: 3em;
+}
+
+.win-container button,
+.lose-container button {
+  font-family: "stairsnslabs";
+  font-size: 0.9em;
+  word-spacing: -50%;
+  letter-spacing: -20%;
+  background-color: lime;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition-duration: 0.1s;
+}
+
+.win-container button:hover,
+.lose-container button:hover {
+  font-size: 0.95em;
+}

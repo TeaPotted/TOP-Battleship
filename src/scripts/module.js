@@ -1,12 +1,15 @@
 import { Player } from "./player.js";
 import { displayShips, renderPlayerBoard } from "./start-modules.js";
 import { computerMakeAttack, timeOut } from "./computer.js";
+import { displayWinScreen, displayLoseScreen } from "./end-modules.js";
 
 function RenderGame() {
   let player1 = Player();
   const compPlayer = Player();
   let turn = "player";
   let endGame = false;
+  // player1.placeShip(1, "h", 0, 0);
+  // compPlayer.placeShip(1, "v", 0, 0);
 
   // function for displaying both the player's and computer's board on the DOM
   const getBoards = () => {
@@ -24,11 +27,18 @@ function RenderGame() {
   const checkGameStatus = () => {
     if (player1.allShipsSunk() || compPlayer.allShipsSunk()) {
       endGame = true;
-      console.log(`${turn} wins!`);
+      setTimeout(
+        () =>
+          turn === "player"
+            ? displayWinScreen(resetGame, displayStartScreen)
+            : displayLoseScreen(resetGame, displayStartScreen),
+        500,
+      );
     }
   };
 
   const switchTurn = () => {
+    if (endGame === true) return;
     turn === "player" ? (turn = "computer") : (turn = "player");
     document.querySelector("#turn").textContent = turn;
   };
@@ -84,7 +94,7 @@ function RenderGame() {
     }
   };
 
-  // resets the whole game before displayng back the title screen
+  // resets the whole game and removes .game-container from the DOM
   const resetGame = () => {
     clearTimeout(timeOut);
     turn = "player";
@@ -92,7 +102,6 @@ function RenderGame() {
     player1.resetPlayer();
     compPlayer.resetPlayer();
     document.querySelector(".game-container").remove();
-    document.querySelector(".titleScreen-container").style.display = "flex";
   };
 
   const startGame = () => {
@@ -133,7 +142,10 @@ function RenderGame() {
     const quitBtn = document.createElement("button");
     quitBtn.classList.add("quit");
     quitBtn.textContent = "QUIT";
-    quitBtn.addEventListener("click", resetGame);
+    quitBtn.addEventListener("click", () => {
+      resetGame();
+      document.querySelector(".titleScreen-container").style.display = "flex";
+    });
 
     // p.instruction
     const instructionP = document.createElement("p");
