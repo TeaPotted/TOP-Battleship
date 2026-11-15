@@ -1,6 +1,7 @@
+import { createDiv, createBtn } from "./create-elems.js";
+
 function getPlayAgainBtn(resetGame, displayStartScreen) {
-  const button = document.createElement("button");
-  button.textContent = "PLAY AGAIN";
+  const button = createBtn("PLAY AGAIN");
 
   button.addEventListener("click", () => {
     resetGame();
@@ -13,10 +14,8 @@ function getPlayAgainBtn(resetGame, displayStartScreen) {
 
 // displays the winning screen
 function displayWinScreen(resetGame, displayStartScreen) {
-  const container = document.createElement("div");
-  container.classList.add("end-container");
-  const winContainer = document.createElement("div");
-  winContainer.classList.add("win-container");
+  const container = createDiv("end-container");
+  const winContainer = createDiv("win-container");
   const text = document.createElement("p");
   text.classList.add("text");
   text.textContent = "YOU WIN!";
@@ -35,11 +34,8 @@ function displayWinScreen(resetGame, displayStartScreen) {
 
 // displays the losing screen
 function displayLoseScreen(resetGame, displayStartScreen) {
-  const container = document.createElement("div");
-  container.classList.add("end-container");
-
-  const loseContainer = document.createElement("div");
-  loseContainer.classList.add("lose-container");
+  const container = createDiv("end-container");
+  const loseContainer = createDiv("lose-container");
 
   const text = document.createElement("p");
   text.classList.add("text");
