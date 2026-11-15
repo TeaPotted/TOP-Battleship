@@ -1,9 +1,10 @@
+import { createDiv, createBtn } from "./create-elems.js";
+
 let dragged;
 let draggedDiv;
 
 const createShip = (len, dir) => {
-  const shipDiv = document.createElement("div");
-  shipDiv.classList.add("ship");
+  const shipDiv = createDiv("ship");
   shipDiv.dataset.length = len;
   shipDiv.dataset.direction = dir;
   shipDiv.draggable = true;
@@ -16,7 +17,7 @@ const createShip = (len, dir) => {
   }
 
   for (let i = 0; i < len; i++) {
-    const subDiv = document.createElement("div");
+    const subDiv = createDiv();
     shipDiv.append(subDiv);
 
     if (dir === "v") {
@@ -42,7 +43,7 @@ const createShip = (len, dir) => {
 const renderPlayerBoard = (player, playerBoardDiv) => {
   const cells = player.getCells();
   for (let cell of cells) {
-    const div = document.createElement("div");
+    const div = createDiv();
     div.dataset.coordinate = cell.coordinate;
     // if the cell is null, make div have a 'empty' class
     if (cell.type === null) {
@@ -83,11 +84,15 @@ function dragAndDropShip(player, playerBoardDiv, cell, e) {
       return;
     }
     // if .startScreen contains p.error, remove it
-    const startScreenContainer = document.querySelector(".startScreen-container");
+    const startScreenContainer = document.querySelector(
+      ".startScreen-container",
+    );
     if (startScreenContainer.querySelector("p.error")) {
-      startScreenContainer.removeChild(startScreenContainer.querySelector("p.error"));
+      startScreenContainer.removeChild(
+        startScreenContainer.querySelector("p.error"),
+      );
     }
-      
+
     player.placeShip(Number(length), direction, row, col);
     playerBoardDiv.textContent = "";
     renderPlayerBoard(player, playerBoardDiv);
@@ -97,11 +102,9 @@ function dragAndDropShip(player, playerBoardDiv, cell, e) {
 
 // displays the container for keeping the placeable ships
 const displayShips = () => {
-  const container = document.createElement("div");
-  container.classList.add("ships-container");
+  const container = createDiv("ships-container");
 
-  const verticalShips = document.createElement("div");
-  verticalShips.classList.add("vertical-container");
+  const verticalShips = createDiv("vertical-container");
   verticalShips.append(
     createShip(1, "v"),
     createShip(2, "v"),
@@ -110,8 +113,7 @@ const displayShips = () => {
     createShip(5, "v"),
   );
 
-  const horizontalShips = document.createElement("div");
-  horizontalShips.classList.add("horizontal-container");
+  const horizontalShips = createDiv("horizontal-container");
   horizontalShips.append(
     createShip(1, "h"),
     createShip(2, "h"),
@@ -121,13 +123,10 @@ const displayShips = () => {
   );
 
   // div for change ship button and paragraph
-  const changeShipTypeDiv = document.createElement("div");
-  changeShipTypeDiv.classList.add("changeShip-container");
+  const changeShipTypeDiv = createDiv("changeShip-container");
 
-  // button for switches displaying either horizontal or vertical ships
-  const changeShipType = document.createElement("button");
-  changeShipType.classList.add("vertical");
-  changeShipType.textContent = "VERTICAL";
+  // button that switches displaying either horizontal or vertical ships
+  const changeShipType = createBtn("VERTICAL", "vertical");
 
   const p = document.createElement("p");
   p.textContent = "click to display different directions";
@@ -139,8 +138,8 @@ const displayShips = () => {
       changeShipType.textContent = "HORIZONTAL";
       verticalShips.style.display = "none";
       horizontalShips.style.display = "block";
-      // else, display the vertical ships
     } else {
+      // else, display the vertical ships
       changeShipType.textContent = "VERTICAL";
       horizontalShips.style.display = "none";
       verticalShips.style.display = "flex";
