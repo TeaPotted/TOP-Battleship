@@ -294,6 +294,17 @@ body {
   background-color: crimson;
 }
 
+.startScreen-container .back {
+  background-color: rgb(50, 98, 255);
+  position: absolute;
+  top: 2%;
+  left: 1.5%;
+  font-family: "Press Start 2P";
+  font-size: 1em;
+  padding: 9px;
+  cursor: pointer;
+}
+
 /* game screen */
 
 .game-container {

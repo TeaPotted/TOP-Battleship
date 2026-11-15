@@ -234,7 +234,19 @@ function RenderGame() {
     });
 
     buttonsDiv.append(startBtn, resetBtn);
-    startScreenContainer.append(boardsContainerDiv, buttonsDiv);
+
+    // back button
+    const backBtn = document.createElement("button");
+    backBtn.textContent = "BACK";
+    backBtn.classList.add("back");
+    backBtn.addEventListener("click", () => {
+      player1.resetPlayer();
+      compPlayer.resetPlayer();
+      startScreenContainer.remove();
+      document.querySelector(".titleScreen-container").style.display = "flex";
+    });
+
+    startScreenContainer.append(boardsContainerDiv, buttonsDiv, backBtn);
     document.body.append(startScreenContainer);
     compPlayer.randomlyPlaceShips();
   };
