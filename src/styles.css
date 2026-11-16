@@ -187,6 +187,19 @@ body {
 .board > div {
   outline: 1px solid rgb(188, 187, 187);
 }
+.board.computer > div {
+  cursor: crosshair;
+}
+
+.board.computer > .miss,
+.board.computer > .ship {
+  cursor: not-allowed;
+}
+
+.board.computer > .empty:hover {
+  z-index: 1;
+  outline: 2px solid black;
+}
 
 .board,
 .ships-container {
