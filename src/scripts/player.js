@@ -79,7 +79,6 @@ function Player() {
       dir = directions[Math.floor(Math.random() * directions.length)];
     }
 
-    console.log("ship:", row, col, len, dir);
     gb.placeShip(row, col, len, dir);
   };
 
